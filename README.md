@@ -68,7 +68,7 @@ this all proofs that the calculator works correctly if given the expected input
 if you want to use the programm after using the package command we use
 
 ```
-mvn sudo mvn spring-boot:run
+mvn spring-boot:run
 ```
 
 after the server has initialized, you'll have to type in the browser
