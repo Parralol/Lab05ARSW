@@ -26,10 +26,9 @@ public class Lab05Controller {
             Model model) {
         double result1 = 0.0;
         count = 0;
-        System.out.println(starting(number1));
         String operation = getOperation(number1);
         
-        if (starting(number1)) {
+        if (!starting(number1)) {
             switch (operation) {
                 case "\\+":
                     result1 = Double.parseDouble(number1.split(operation)[0])
@@ -124,13 +123,12 @@ public class Lab05Controller {
         } else if (op.indexOf('/') >= 0) {
             res = "\\/";
         }
-        System.out.println(res + " AAAAAAAAAAA");
         return res;
     }
 
     public boolean starting(String op) {
         boolean res = false;
-        if (op.startsWith("\\+") || op.startsWith("\\-") || op.startsWith("\\*") || op.startsWith("\\/")) {
+        if (op.charAt(0) =='+' ||op.charAt(0) == '-' || op.charAt(0) == '*' || op.charAt(0) == '/') {
             res = true;
         } 
         return res;
