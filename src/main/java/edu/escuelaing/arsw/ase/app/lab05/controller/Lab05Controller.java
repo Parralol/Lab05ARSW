@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class Lab05Controller {
     int count = 0;
+    double result = 0.0;
+
     @GetMapping("/prueba")
     public String loadIndex() {
         return "prueba";
@@ -16,30 +18,59 @@ public class Lab05Controller {
 
     @GetMapping("/calculator")
     public String showCalculator() {
-        
         return "calculator";
     }
 
     @PostMapping("/calculate")
     public String calculate(@RequestParam String number1,
             Model model) {
-        double result = 0;
-        count =0;
+        double result1 = 0.0;
+        count = 0;
+        System.out.println(starting(number1));
         String operation = getOperation(number1);
-        switch (operation) {
-            case "\\+":
-                result = Double.parseDouble(number1.split(operation)[0]) + Double.parseDouble(number1.split(operation)[1]);
-                break;
-            case "\\-":
-                result = Double.parseDouble(number1.split(operation)[0]) - Double.parseDouble(number1.split(operation)[1]);
-                break;
-            case "\\*":
-                result = Double.parseDouble(number1.split(operation)[0]) * Double.parseDouble(number1.split(operation)[1]);
-                break;
-            case "\\/":
-                result = Double.parseDouble(number1.split(operation)[0]) / Double.parseDouble(number1.split(operation)[1]);
-                break;
+        
+        if (starting(number1)) {
+            switch (operation) {
+                case "\\+":
+                    result1 = Double.parseDouble(number1.split(operation)[0])
+                            + Double.parseDouble(number1.split(operation)[1]);
+                    break;
+                case "\\-":
+                    result1 = Double.parseDouble(number1.split(operation)[0])
+                            - Double.parseDouble(number1.split(operation)[1]);
+                    break;
+                case "\\*":
+                    result1 = Double.parseDouble(number1.split(operation)[0])
+                            * Double.parseDouble(number1.split(operation)[1]);
+                    break;
+                case "\\/":
+                    result1 = Double.parseDouble(number1.split(operation)[0])
+                            / Double.parseDouble(number1.split(operation)[1]);
+                    break;
+            }
+        } else {
+            System.out.println(result + Double.toString(Double.parseDouble(number1.split(operation)[1])));
+            switch (operation) {
+                case "\\+":
+                    
+                    result1 = result + Double.parseDouble(number1.split(operation)[1]);
+                    break;
+                case "\\-":
+                    result1 = result
+                            - Double.parseDouble(number1.split(operation)[1]);
+                    break;
+                case "\\*":
+                    result1 = result
+                            * Double.parseDouble(number1.split(operation)[1]);
+                    break;
+                case "\\/":
+                    result1 = result
+                            / Double.parseDouble(number1.split(operation)[1]);
+                    break;
+            }
+
         }
+        this.result = result1;
         model.addAttribute("result", result);
         return "calculator";
     }
@@ -49,10 +80,10 @@ public class Lab05Controller {
             @RequestParam String operation,
             Model model) {
         count++;
-        if(count >1){
+        if (count > 1) {
             model.addAttribute("number1", number1);
             return "calculator";
-        } 
+        }
         switch (operation) {
 
             case "+":
@@ -68,7 +99,7 @@ public class Lab05Controller {
                 model.addAttribute("number1", number1 + "*");
                 break;
         }
-
+        model.addAttribute("result", result);
         return "calculator";
     }
 
@@ -78,20 +109,30 @@ public class Lab05Controller {
         model.addAttribute("number1", 0);
         model.addAttribute("number2", 0);
         count = 0;
+        result = 0.0;
         return "calculator";
     }
 
-    public String getOperation(String op){
+    public String getOperation(String op) {
         String res = "";
-        if(op.indexOf('+') > 0){
+        if (op.indexOf('+') >= 0) {
             res = "\\+";
-        }else if(op.indexOf('-') > 0){
+        } else if (op.indexOf('-') >= 0) {
             res = "\\-";
-        }else if(op.indexOf('*') > 0){
+        } else if (op.indexOf('*') >= 0) {
             res = "\\*";
-        }else if(op.indexOf('/') > 0){
+        } else if (op.indexOf('/') >= 0) {
             res = "\\/";
         }
+        System.out.println(res + " AAAAAAAAAAA");
+        return res;
+    }
+
+    public boolean starting(String op) {
+        boolean res = false;
+        if (op.startsWith("\\+") || op.startsWith("\\-") || op.startsWith("\\*") || op.startsWith("\\/")) {
+            res = true;
+        } 
         return res;
     }
 }
