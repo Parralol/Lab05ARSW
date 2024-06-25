@@ -67,6 +67,31 @@ and let's divide it by 45, just for good measure
 
 this all proofs that the calculator works correctly if given the expected input
 
+
+## Generating javadoc
+
+Simply enter the following commands
+
+```
+mvn javadoc:javadoc
+```
+
+```
+mvn javadoc:jar
+```
+
+```
+mvn javadoc:aggregate
+```
+
+```
+mvn javadoc:aggregate-jar
+```
+
+```
+mvn javadoc:test-javadoc 
+```
+
 ## Deployment
 
 **IN ORDER FOR THIS PROGRAM TO WORK, YOU'LL NEED TO EXECUTE THE PROGRAM ON THE FOLDER YOU WANT TO WORK WITH, WITH THE FILES YOU WANT TO WORK WITH**
